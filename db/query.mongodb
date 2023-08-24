@@ -1,0 +1,191 @@
+use("db_citas_campus");
+db.createCollection("counters");
+db.counters.insertMany([
+    {ID:`citasID`, sequenceValue: 0}
+]);
+
+use("db_citas_campus");
+db.createCollection("usuario", {
+    validator:{
+        $jsonSchema:{
+            bsonType: "object",
+            additionalProperties: false,
+            required: ["usu_id", "usu_nombre", "usu_primer_apellido_usuar", "usu_telefono", "usu_direccion", "usu_email", "usu_tipodoc", "usu_genero"],
+            properties:{
+                _id:{
+                    bsonType: 'objectId',
+                },
+                usu_id:{
+                    bsonType: "int",
+                    description: "El campo 'usu_id' debe ser un int no mayor a [12 caracteres]"
+                },
+                usu_nombre:{
+                    bsonType: "string",
+                    maxLength: 20,
+                    pattern: "^[A-Za-z\\s]+$",
+                    description: "El campo 'usu_nombre' debe ser un string, no contener numeros y no sobrepasar [20 caracteres]",
+                },
+                usu_segdo_nombre:{
+                    bsonType: "string",
+                    maxLength: 20,
+                    pattern: "^[A-Za-z\\s]+$",
+                    description: "El campo 'usu_segdo_nombre' debe ser un string, no contener numeros y no sobrepasar [20 caracteres]",
+                },
+                usu_primer_apellido_usuar:{
+                    bsonType: "string",
+                    maxLength: 20,
+                    pattern: "^[A-Za-z\\s]+$",
+                    description: "El campo 'usu_primer_apellido_usuar' debe ser un string, no contener numeros y no sobrepasar [20 caracteres]",
+                },
+                usu_segdo_apellido_usuar:{
+                    bsonType: "string",
+                    maxLength: 20,
+                    pattern: "^[A-Za-z\\s]+$",
+                    description: "El campo 'usu_segdo_apellido_usuar' debe ser un string, no contener numeros y no sobrepasar [20 caracteres]",
+                },
+                usu_telefono:{
+                    bsonType: "string",
+                    maxLength: 10,
+                    pattern: "^[0-9]+$",
+                    description: "El campo 'usu_segdo_apellido_usuar' debe ser un string numerico y no sobrepasar [10 caracteres]",
+                },
+                usu_direccion:{
+                    bsonType: "string",
+                    maxLength: 70,
+                    description: "El campo 'usu_direccion' debe ser un string y no sobrepasar [70 caracteres]",
+                },
+                usu_email:{
+                    bsonType: "string",
+                    maxLength: 60,
+                    pattern: "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ,.#@\\s-]+$",
+                    description: "El campo 'usu_direccion' debe ser un string y no sobrepasar [60 caracteres]",
+                },
+                usu_tipodoc:{
+                    bsonType: "string",
+                    enum:["CC", "TI", "PP"],
+                    description: "El campo 'usu_tipodoc', debe ser un string. valores permitidos[CC,TI,PP]"
+                },
+                usu_genero:{
+                    bsonType: "string",
+                    enum:["M", "F", "NI"],
+                    description: "El campo 'usu_genero', debe ser un string. valores permitidos[M,F,NI]"
+                },
+                usu_acudiente:{
+                    bsonType: "object",
+                    additionalProperties: false,
+                    required:["acu_id", "acu_nombreCompleto", "acu_telefono"],
+                    properties:{
+                        acu_id:{
+                            bsonType: "int",
+                            description: "El campo 'usu_id' debe ser un int no mayor a [12 caracteres]"
+                        },
+                        acu_nombreCompleto:{
+                            bsonType: "string",
+                            maxLength: 60,
+                            pattern: "^[A-Za-z\\s]+$",
+                            description: "El campo 'usu_nombre' debe ser un string, no contener numeros y no sobrepasar [60 caracteres]"
+                        },
+                        acu_telefono:{
+                            bsonType: "string",
+                            maxLength: 10,
+                            pattern: "^[0-9]+$",
+                            description: "El campo 'usu_segdo_apellido_usuar' debe ser un string numerico y no sobrepasar [10 caracteres]"
+                        },
+                        acu_direccion:{
+                            bsonType: "string",
+                            maxLength: 70,
+                            description: "El campo 'usu_direccion' debe ser un string y no sobrepasar [70 caracteres]",
+                        }
+                    }
+                }
+            }
+        }
+    }
+})
+
+use("db_citas_campus");
+db.createCollection("cita", {
+    validator:{
+        $jsonSchema:{
+            bsonType: "object",
+            additionalProperties: false,
+            required: ["cit_fecha", "cit_estadoCita", "cit_medico", "cit_datosUsuario"],
+            properties:{
+                _id:{
+                    bsonType: 'objectId',
+                },
+                ID: {
+                    bsonType: "int",
+                    description: "ID debe ser un int",
+                },
+                cit_fecha:{
+                    bsonType: "date",
+                    description: "El campo 'cit_fecha' tipo date"
+                },
+                cit_estadoCita:{
+                    bsonType: "string",
+                    enum:["Cancelada", "Reagendada", "Activa", "Pendiente"],
+                    description: "El campo 'usu_tipodoc', debe ser un string. valores permitidos[Cancelada,Reagendada,Activa,Pendiente]"
+                },
+                cit_medico:{
+                    bsonType: "int",
+                    description: "El campo 'cit_medico' debe ser un int",
+                },
+                cit_datosUsuario:{
+                    bsonType: "int",
+                    description: "El campo 'cit_datosUsuario' debe ser un int",
+                },
+            }
+        }
+    }
+})
+
+use("db_citas_campus");
+db.createCollection("medico", {
+    validator:{
+        $jsonSchema:{
+            bsonType: "object",
+            additionalProperties: false,
+            required: ["med_nroMatriculaProfesional", "med_nombreCompleto", "med_consultorio", "med_especialidad"],
+            properties:{
+                _id:{
+                    bsonType: 'objectId',
+                },
+                med_nroMatriculaProfesional:{
+                    bsonType: "int",
+                    description: "El campo 'med_nroMatriculaProfesional' debe ser un int no mayor a [12 caracteres]"
+                },
+                med_nombreCompleto:{
+                    bsonType: "string",
+                    maxLength: 60,
+                    pattern: "^[A-Za-z\\s]+$",
+                    description: "El campo 'med_nombreCompleto' debe ser un string, no contener numeros y no sobrepasar [60 caracteres]"
+                },
+                med_consultorio:{
+                    bsonType: "object",
+                    additionalProperties: false,
+                    required:["cons_codigo"],
+                    properties:{
+                        cons_codigo:{
+                            bsonType: "int",
+                            description: "El campo 'cons_codigo' debe ser un int."
+                        },
+                        cons_nombre:{
+                            bsonType: "string",
+                            description: "El campo 'cons_nombre' debe ser un string."
+                        }
+                    },
+                },
+                med_especialidad:{
+                    bsonType: "string",
+                    maxLength: 40,
+                    pattern: "^[A-Za-z\\s]+$",
+                    description: "El campo 'med_especialidad' debe ser un string, no contener numeros y no sobrepasar [40 caracteres]",
+                },
+               
+            }
+        }
+    }
+})
+
+
