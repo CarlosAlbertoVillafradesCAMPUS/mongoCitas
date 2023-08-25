@@ -146,7 +146,7 @@ db.createCollection("medico", {
         $jsonSchema:{
             bsonType: "object",
             additionalProperties: false,
-            required: ["med_nroMatriculaProfesional", "med_nombreCompleto", "med_consultorio", "med_especialidad"],
+            required: ["med_nroMatriculaProfesional", "med_nombreCompleto", "med_consultorio", "med_especialidad", "password"],
             properties:{
                 _id:{
                     bsonType: 'objectId',
@@ -182,10 +182,30 @@ db.createCollection("medico", {
                     pattern: "^[A-Za-z\\s]+$",
                     description: "El campo 'med_especialidad' debe ser un string, no contener numeros y no sobrepasar [40 caracteres]",
                 },
+                password:{
+                    bsonType: "string",
+                    maxLength: 20,
+                    description: "El campo 'password' debe ser un string, no sobrepasar [20 caracteres]",
+                
+                }
                
             }
         }
     }
 })
+
+use("db_citas_campus");
+db.medico.insertOne({
+    med_nroMatriculaProfesional: 1111,
+    med_nombreCompleto: "Carlos Villafrades",
+    med_consultorio:{
+        cons_codigo:256,
+    },
+    med_especialidad: "Cirujano",
+    password:"villa"
+})
+
+use("db_citas_campus");
+db.medico.findOne({med_nroMatriculaProfesional:1111, password: "villa"})
 
 
