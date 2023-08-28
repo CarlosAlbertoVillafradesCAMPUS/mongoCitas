@@ -176,6 +176,22 @@ db.createCollection("medico", {
                         }
                     },
                 },
+                role:{
+                    bsonType: "object",
+                    additionalProperties: false,
+                    required:["nombre", "permisos"],
+                    properties:{
+                        nombre:{
+                            bsonType:"string",
+                            enum:["admin", "empleado"],
+                            description: "El campo 'nombre' del objeto 'roles' es obligatorio"
+                        },
+                        permisos:{
+                            bsonType: "array",
+                            description: "El campo 'permisos' del objeto 'roles' es obligatorio"
+                        }
+                    }
+                },
                 med_especialidad:{
                     bsonType: "string",
                     maxLength: 40,
@@ -201,11 +217,15 @@ db.medico.insertOne({
     med_consultorio:{
         cons_codigo:256,
     },
+    role:{
+        nombre:"admin",
+        permisos:["user"],
+    },
     med_especialidad: "Cirujano",
     password:"villa"
 })
 
-use("db_citas_campus");
-db.medico.findOne({med_nroMatriculaProfesional:1111, password: "villa"})
+/* use("db_citas_campus");
+db.medico.findOne({med_nroMatriculaProfesional:1111, password: "villa"}) */
 
 

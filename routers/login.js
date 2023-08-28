@@ -9,7 +9,7 @@ let version = routesVersioning();
 
 appLogin.use(generateToken)
 
-appLogin.post("/", version({
+appLogin.get("/", version({
     "1.0.0": loginV1,
     "2.2.1": loginV2
 }))
