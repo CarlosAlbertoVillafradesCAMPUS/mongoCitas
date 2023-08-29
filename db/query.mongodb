@@ -321,6 +321,7 @@ db.createCollection("medico", {
 //     }
 //   ])
 
+//Medicos
 // use("db_citas_campus");
 // db.medico.insertMany([{
 //     med_nroMatriculaProfesional: 2222,
