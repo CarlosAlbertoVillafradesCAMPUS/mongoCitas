@@ -31,26 +31,16 @@ const generateToken = async (req,res,next) =>{
     next()
 }
 
-    const verifyToken = (accessIndicator) => async (req, res, next) => {
+    const verifyToken = () => async (req, res, next) => {
     const { authorization } = req.headers;
     if (!authorization)
       return res.status(400).json({ status: 400, message: "Porfavor generar Token" });
   
     const encoder = new TextEncoder();
-    const jwtData = await jwtVerify(
+    req.data = await jwtVerify(
       authorization,
       encoder.encode(process.env.JWT_PRIVATE_KEY)
     );
-  
-    const permisos = jwtData.payload.role.permisos;
-  
-    if (!permisos.includes("*")) {
-      if (!permisos.includes(accessIndicator)){
-        return res.status(401).send("No tienes permiso para acceder");}
-        else{
-            next()
-        }
-    }
     next();
   };
 

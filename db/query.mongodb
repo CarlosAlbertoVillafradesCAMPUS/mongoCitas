@@ -146,7 +146,7 @@ db.createCollection("medico", {
         $jsonSchema:{
             bsonType: "object",
             additionalProperties: false,
-            required: ["med_nroMatriculaProfesional", "med_nombreCompleto", "med_consultorio", "med_especialidad", "password"],
+            required: ["med_nroMatriculaProfesional", "med_nombreCompleto", "med_consultorio", "role", "med_especialidad", "password"],
             properties:{
                 _id:{
                     bsonType: 'objectId',
@@ -179,7 +179,7 @@ db.createCollection("medico", {
                 role:{
                     bsonType: "object",
                     additionalProperties: false,
-                    required:["nombre", "permisos"],
+                    required:["nombre", "permisos", "versiones"],
                     properties:{
                         nombre:{
                             bsonType:"string",
@@ -188,7 +188,18 @@ db.createCollection("medico", {
                         },
                         permisos:{
                             bsonType: "array",
-                            description: "El campo 'permisos' del objeto 'roles' es obligatorio"
+                            items:{
+                                bsonType:"string",
+                                enum:["*","get_usuarios", "get_medicos", "get_citas", "post_usuarios", "post_medicos", "post_citas"],
+                                description: "El campo 'permisos' del objeto 'roles' es obligatorio"
+                            }
+                        },
+                        versiones:{
+                            bsonType: "array",
+                            items:{
+                                bsonType:"string",
+                                description: "El campo 'versiones' del objeto 'roles' es obligatorio"
+                            }
                         }
                     }
                 },
@@ -210,20 +221,80 @@ db.createCollection("medico", {
     }
 })
 
-use("db_citas_campus");
-db.medico.insertOne({
-    med_nroMatriculaProfesional: 1111,
-    med_nombreCompleto: "Carlos Villafrades",
-    med_consultorio:{
-        cons_codigo:256,
-    },
-    role:{
-        nombre:"admin",
-        permisos:["user"],
-    },
-    med_especialidad: "Cirujano",
-    password:"villa"
-})
+// use("db_citas_campus");
+// db.medico.insertMany([{
+//     med_nroMatriculaProfesional: 2222,
+//     med_nombreCompleto: "Maria Perez",
+//     med_consultorio: {
+//       cons_codigo: 369,
+//     },
+//     role: {
+//       nombre: "empleado",
+//       permisos: ["get_citas", "post_citas"],
+//       versiones: ["1.0.0"],
+//     },
+//     med_especialidad: "Pediatra",
+//     password: "maria",
+//   },
+
+//   {
+//     med_nroMatriculaProfesional: 3333,
+//     med_nombreCompleto: "Jose Garcia",
+//     med_consultorio: {
+//       cons_codigo: 456,
+//     },
+//     role: {
+//       nombre: "admin",
+//       permisos: ["*"],
+//       versiones: ["1.0.0"],
+//     },
+//     med_especialidad: "Cirujano",
+//     password: "jose",
+//   },
+
+//   {
+//     med_nroMatriculaProfesional: 4444,
+//     med_nombreCompleto: "Luis Rodriguez",
+//     med_consultorio: {
+//       cons_codigo: 543,
+//     },
+//     role: {
+//       nombre: "empleado",
+//       permisos: ["get_usuarios", "post_usuarios"],
+//       versiones: ["1.0.0"],
+//     },
+//     med_especialidad: "Ginebra",
+//     password: "luis",
+//   },
+
+//   {
+//     med_nroMatriculaProfesional: 5548,
+//     med_nombreCompleto: "felipe Garcia",
+//     med_consultorio: {
+//       cons_codigo: 459,
+//     },
+//     role: {
+//       nombre: "empleado",
+//       permisos: ["get_usuarios", "post_usuarios"],
+//       versiones: ["1.0.0"],
+//     },
+//     med_especialidad: "Cirujano",
+//     password: "felipe",
+//   },
+//   {
+//     med_nroMatriculaProfesional: 6666,
+//     med_nombreCompleto: "Pedro Gonzalez",
+//     med_consultorio: {
+//       cons_codigo: 721,
+//     },
+//     role: {
+//       nombre: "empleado",
+//       permisos: ["get_usuarios", "get_medicos"],
+//       versiones: ["1.0.0"],
+//     },
+//     med_especialidad: "pediatra",
+//     password: "pedro",
+//   },])
 
 /* use("db_citas_campus");
 db.medico.findOne({med_nroMatriculaProfesional:1111, password: "villa"}) */
