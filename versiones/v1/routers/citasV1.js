@@ -67,6 +67,49 @@ citasV1.get("/usuario", validatePermisos("get_citas"), async (req,res)=>{
     
 })
 
+//11. Obtener todas las citas realizadas por los pacientes de un genero si su estado de la cita es Activa
+citasV1.get("/genero/:genero", validatePermisos("get_citas"), async (req,res)=>{
+    try {
+
+        let gender = req.params.genero
+
+        let tabla = dataBase.collection("usuario")
+        let data = await tabla.aggregate([
+            {
+                $lookup: {
+                    from: "cita",
+                    localField: "usu_id",
+                    foreignField: "cit_datosUsuario",
+                    as: "info_citas"
+                }
+            },
+            {
+                $unwind: "$info_citas"
+            },
+            {
+                $match: {
+                    usu_genero: gender,
+                    "info_citas.cit_estadoCita": "Activa"
+                }
+            },
+            { 
+                $project: {
+                    _id: 0,
+                    usu_acudiente: 0,
+                    "info_citas._id": 0,
+                    "info_citas.cit_datosUsuario": 0
+                }
+            }
+        ]).toArray();
+
+        res.send(data)
+
+    }  catch (error) {
+        res.send({status: 400, message: "Error al obtener lo datos"})
+    }
+    
+})
+
 
 export {
     citasV1
