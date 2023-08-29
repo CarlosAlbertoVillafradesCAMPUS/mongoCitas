@@ -6,12 +6,11 @@ import { usuarioV1 } from "./routers/usuariosV1.js";
 import { medicoV1 } from "./routers/medicoV1.js";
 
 const RoutesV1 = Router();
-RoutesV1.use(verifyToken)
 
 RoutesV1.use("/login", loginV1)
-RoutesV1.use("/citas", citasV1)
-RoutesV1.use("/usuarios", usuarioV1)
-RoutesV1.use("/medicos", medicoV1)
+RoutesV1.use("/citas",verifyToken(), citasV1)
+RoutesV1.use("/usuarios",verifyToken(), usuarioV1)
+RoutesV1.use("/medicos",verifyToken(), medicoV1)
 
 
 

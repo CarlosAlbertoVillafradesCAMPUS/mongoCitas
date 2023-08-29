@@ -13,7 +13,7 @@ const generateToken = async (req,res,next) =>{
 
     const result = await coleccion.findOne({med_nroMatriculaProfesional: User, password: Password});
 
-    if (!result) return res.status(401).send({message: "Usuario no encontrado"});
+    if (!result) return res.status(401).send({status:401, message: "Usuario no encontrado"});
     const encoder = new TextEncoder();
     
     let data = {
@@ -35,13 +35,17 @@ const generateToken = async (req,res,next) =>{
     const { authorization } = req.headers;
     if (!authorization)
       return res.status(400).json({ status: 400, message: "Porfavor generar Token" });
-  
-    const encoder = new TextEncoder();
-    req.data = await jwtVerify(
-      authorization,
-      encoder.encode(process.env.JWT_PRIVATE_KEY)
-    );
-    next();
+      try {
+        const encoder = new TextEncoder();
+        req.data = await jwtVerify(
+          authorization,
+          encoder.encode(process.env.JWT_PRIVATE_KEY)
+        );
+        next();
+      } catch (error) {
+        res.status(498).send({status:498, message: "Algo salio mal, genere un nuevo token"});
+      }
+   
   };
 
 export{

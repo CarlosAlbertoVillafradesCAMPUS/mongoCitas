@@ -12,7 +12,7 @@ let version = routesVersioning();
 appExpress.use(
   "/",
   version({
-    "~1.0.0": RoutesV1,
+    "1.0.0": RoutesV1,
   })
 );
 

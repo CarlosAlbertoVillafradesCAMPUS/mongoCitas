@@ -221,6 +221,106 @@ db.createCollection("medico", {
     }
 })
 
+//USUARIOS
+// use("db_citas_campus");
+// db.usuario.insertMany([
+//     {
+//         "usu_id": 123456789,
+//         "usu_nombre": "Juan Perez",
+//         "usu_primer_apellido_usuar": "Perez",
+//         "usu_telefono": "3123456789",
+//         "usu_direccion": "Calle 123 # 45-67",
+//         "usu_email": "juan@gmail.com",
+//         "usu_tipodoc": "CC",
+//         "usu_genero": "M"
+//       },
+//       {
+//         "usu_id": 987654321,
+//         "usu_nombre": "Marta Martinez",
+//         "usu_primer_apellido_usuar": "Martinez",
+//         "usu_telefono": "3123456789",
+//         "usu_direccion": "Calle456",
+//         "usu_email": "martam@mail.com",
+//         "usu_tipodoc": "TI",
+//         "usu_genero": "F",
+//         "usu_acudiente": {
+//           "acu_id": 765432109,
+//           "acu_nombreCompleto": "Pedro Martinez",
+//           "acu_telefono": "3123456789"
+//         }
+//       },
+//       {
+//         "usu_id": 98765432,
+//         "usu_nombre": "Pedro Perez",
+//         "usu_primer_apellido_usuar": "Perez",
+//         "usu_telefono": "3123456789",
+//         "usu_direccion": "Calle 789 # 09-12",
+//         "usu_email": "pedroperez@mail.com",
+//         "usu_tipodoc": "PP",
+//         "usu_genero": "M"
+//       },
+//       {
+//         "usu_id": 876543210,
+//         "usu_nombre": "Sofia Garcia",
+//         "usu_primer_apellido_usuar": "Garcia",
+//         "usu_telefono": "3123456789",
+//         "usu_direccion": "Calle 098 # 12-34",
+//         "usu_email": "sofiagarcia@mail.com",
+//         "usu_tipodoc": "CC",
+//         "usu_genero": "F"
+//       },
+//       {
+//         "usu_id": 765432109,
+//         "usu_nombre": "Jose Lopez",
+//         "usu_primer_apellido_usuar": "Lopez",
+//         "usu_telefono": "3123456789",
+//         "usu_direccion": "Calle 123 # 45-67",
+//         "usu_email": "joselopez@mail.com",
+//         "usu_tipodoc": "TI",
+//         "usu_genero": "M",
+//         "usu_acudiente": {
+//           "acu_id": 432109876,
+//           "acu_nombreCompleto": "Maria Lopez",
+//           "acu_telefono": "3123456789"
+//         }
+//       }
+// ])
+
+//CITAS
+// use("db_citas_campus");
+// db.cita.insertMany([
+//     {
+//       "cit_fecha": new Date(),
+//       "cit_estadoCita": "Activa",
+//       "cit_medico": 1111,
+//       "cit_datosUsuario": 123456789
+//     },
+//     {
+//       "cit_fecha": new Date(),
+//       "cit_estadoCita": "Activa",
+//       "cit_medico": 2222,
+//       "cit_datosUsuario": 987654321
+//     },
+//     {
+//       "cit_fecha": new Date(),
+//       "cit_estadoCita": "Pendiente",
+//       "cit_medico": 3333,
+//       "cit_datosUsuario": 98765432
+//     },
+//     {
+//       "cit_fecha": new Date(),
+//       "cit_estadoCita": "Reagendada",
+//       "cit_medico": 4444,
+//       "cit_datosUsuario": 876543210
+//     },
+//     {
+//       "cit_fecha": new Date(),
+//       "cit_estadoCita": "Cancelada",
+//       "cit_medico": 5555,
+//       "cit_datosUsuario": 765432109
+//     }
+//   ])
+
 // use("db_citas_campus");
 // db.medico.insertMany([{
 //     med_nroMatriculaProfesional: 2222,

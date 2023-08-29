@@ -1,9 +1,9 @@
 import {Router} from "express";
-import { verifyToken } from "../../../config/jwt.js";
+import { validatePermisos } from "../../../helpers/validatePermisos.js";
 
 let citasV1 = Router();
 
-citasV1.get("/", verifyToken(""), (req,res)=>{
+citasV1.get("/", validatePermisos("get_citas"), (req,res)=>{
     res.send("soy citassss")
 })
 
