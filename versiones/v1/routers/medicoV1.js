@@ -24,6 +24,7 @@ medicoV1.get("/", validatePermisos("get_medicos"), async (req,res)=>{
         {
             $project: {
                 _id: 0
+
             }
         }
     ]).toArray();
@@ -70,6 +71,27 @@ medicoV1.get("/usuarios", validatePermisos("get_medicos"), async (req,res)=>{
                 _id: 0,
                 "info_medico.role":0,
                 "info_medico.password":0
+            }
+        }
+    ]).toArray();
+
+    res.send(data)
+
+}  catch (error) {
+  res.send({status: 400, message: "Error al obtener lo datos"})
+}
+})
+
+//8. Obtener los médicos y sus consultorios
+medicoV1.get("/consultorio", validatePermisos("get_medicos"), async (req,res)=>{
+  try {
+    let tabla = dataBase.collection("medico")
+    let data = await tabla.aggregate([
+        {
+            $project: {
+                _id: 0,
+                role: 0,
+                password: 0
             }
         }
     ]).toArray();
