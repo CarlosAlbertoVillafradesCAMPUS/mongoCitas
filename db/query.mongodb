@@ -324,14 +324,14 @@ db.createCollection("medico", {
 //Medicos
 // use("db_citas_campus");
 // db.medico.insertMany([{
-//     med_nroMatriculaProfesional: 2222,
+//     med_nroMatriculaProfesional:     ,
 //     med_nombreCompleto: "Maria Perez",
 //     med_consultorio: {
 //       cons_codigo: 369,
 //     },
 //     role: {
 //       nombre: "empleado",
-//       permisos: ["get_citas", "post_citas"],
+//       permisos: ["get_citas"],
 //       versiones: ["1.0.0"],
 //     },
 //     med_especialidad: "Pediatra",
@@ -361,7 +361,7 @@ db.createCollection("medico", {
 //     },
 //     role: {
 //       nombre: "empleado",
-//       permisos: ["get_usuarios", "post_usuarios"],
+//       permisos: ["get_usuarios", "get_citas"],
 //       versiones: ["1.0.0"],
 //     },
 //     med_especialidad: "Ginebra",
@@ -376,7 +376,7 @@ db.createCollection("medico", {
 //     },
 //     role: {
 //       nombre: "empleado",
-//       permisos: ["get_usuarios", "post_usuarios"],
+//       permisos: ["get_usuarios", "get_medicos"],
 //       versiones: ["1.0.0"],
 //     },
 //     med_especialidad: "Cirujano",

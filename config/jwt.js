@@ -43,7 +43,7 @@ const generateToken = async (req,res,next) =>{
         );
         next();
       } catch (error) {
-        res.status(498).send({status:498, message: "Algo salio mal, genere un nuevo token"});
+        res.status(498).send({status:498, message: "Algo salio mal, generar un nuevo token"});
       }
    
   };
