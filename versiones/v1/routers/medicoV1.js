@@ -103,6 +103,50 @@ medicoV1.get("/consultorio", validatePermisos("get_medicos"), async (req,res)=>{
 }
 })
 
+//10. Obtener los consultorio donde se aplicó las citas de un paciente  
+medicoV1.get("/consultorio/:id_usu", validatePermisos("get_medicos"), async (req,res)=>{
+  try {
+
+    let paciente = req.params.id_usu
+    paciente = parseInt(paciente)
+
+    let tabla = dataBase.collection("usuario")
+    let data = await tabla.aggregate([
+        {
+            $match: {
+                "usu_id": paciente
+            }
+        },
+        {
+            $lookup: {
+                from: "cita",
+                localField: "usu_id",
+                foreignField: "cit_datosUsuario",
+                as: "info_citas"
+            }
+        },
+        {
+            $lookup: {
+                from: "medico",
+                localField: "info_citas.cit_medico",
+                foreignField: "med_nroMatriculaProfesional",
+                as: "info_medico"
+            }
+        },
+        {
+            $project: {
+                _id: 0,
+            }
+        }
+    ]).toArray();
+
+    res.send(data)
+
+}   catch (error) {
+  res.send({status: 400, message: "Error al obtener lo datos"})
+}
+})
+
 export {
     medicoV1
 }
