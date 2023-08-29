@@ -97,7 +97,7 @@ De esa manera podremos acceder a la base de datos que hemos creado y sus registr
 
        ![zoo](./assets/accept_version.png)
 
-    2. para generar nuestro logeo debemos colocar la siguiente ruta y el body colocar el objeto con lo datos del usuario con el que queremos ingresar :
+    2. para generar nuestro logeo debemos colocar la siguiente ruta y el body colocar el objeto con lo datos del usuario con el que queremos ingresar, **importante** solo vamos a tener un maximo de 5 intentos para poder leguearnos si alcanzamos ese limite tendreme que esperar una hora para volver a intentarlo:
 
        `GET: http://"hostname":"port"/login/`
 
